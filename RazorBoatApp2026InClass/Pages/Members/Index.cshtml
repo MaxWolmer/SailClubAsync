@@ -1,0 +1,70 @@
+﻿@page
+@using SailClubLibrary.Models
+@model RazorBoatApp2026InClass.Pages.Members.IndexModel
+@{
+    ViewData["Title"] = "List members";
+}
+
+<h1>List of members</h1>
+
+
+
+<form method="get">
+    <input type="text" name="searchTerm" placeholder="Søg på navn eller tlf..." />
+    <input type="submit" value="Søg" class="btn btn-primary" />
+</form>
+
+<table class="table">
+</table>
+<p>
+    <a asp-page="CreateMember">Create a new Member</a>
+</p>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+               <a-asp-page="Index" asp-route-SortBy="Id" asp-route-SortOrder="@Model.Toggle("Id")" class="text-decoration-none text-dark">
+                    ID @(Model.SortBy == "Id" ? (Model.SortOrder == "asc" ? "▲" : "▼") : "")
+            </th>
+            <th>FirstName</th>
+            <th>SurName</th>
+            <th>PhoneNumber</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>Mail</th>
+            <th>TheMemberType</th>
+            <th>TheMemberRole</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (Member item in Model.Members)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.FirstName</td>
+                <td>@item.SurName</td>
+                <td>@item.PhoneNumber</td>
+                <td>@item.Address</td>
+                <td>@item.City</td>
+                <td>@item.Mail</td>
+                <td>@item.TheMemberType</td>
+                <td>@item.TheMemberRole</td>
+                <td>
+                    <a asp-page="DeleteMember" asp-route-phoneNumber="@item.PhoneNumber">Delete</a> |
+                    <a asp-page="EditMember" asp-route-phoneNumber="@item.PhoneNumber">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@* <form method="get" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="searchTerm" class="form-control" placeholder="Søg efter navn..." />
+        <button type="submit" class="btn btn-secondary">Søg</button>
+        <a asp-page="Index" class="btn btn-outline-secondary">Rens</a>
+    </div>
+</form> *@
